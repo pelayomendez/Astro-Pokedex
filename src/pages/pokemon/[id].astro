@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+
+const reqUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
+const response = await fetch(reqUrl);
+const data = await response.json();
+
+console.log(data);
+
+---
+<Layout title={data.name}>
+    <section>
+  <h1>{data.name}</h1>
+  <img src={data.sprites.front_default} alt={data.name} />
+
+<h2>Type</h2>
+<ul>
+  {data.types.map(typeInfo => (
+    <li>{typeInfo.type.name}</li>
+  ))}
+</ul>
+
+<h2>Abilities</h2>
+<ul>
+  {data.abilities.map(abilityInfo => (
+    <li>{abilityInfo.ability.name}</li>
+  ))}
+</ul>
+
+<h2>Stats</h2>
+<ul>
+  {data.stats.map(statInfo => (
+    <li>{statInfo.stat.name}: {statInfo.base_stat}</li>
+  ))}
+</ul>
+</section>
+</Layout>

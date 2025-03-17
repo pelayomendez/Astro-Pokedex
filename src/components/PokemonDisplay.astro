@@ -1,0 +1,30 @@
+---
+const { pokemonData } = Astro.props;
+console.log(pokemonData);
+---
+
+<section>
+    <h1>{pokemonData.name}</h1>
+    <img src={pokemonData.sprites.front_default} alt={pokemonData.name} />
+  
+  <h2>Type</h2>
+  <ul>
+    {pokemonData.types.map(typeInfo => (
+      <li>{typeInfo.type.name}</li>
+    ))}
+  </ul>
+  
+  <h2>Abilities</h2>
+  <ul>
+    {pokemonData.abilities.map(abilityInfo => (
+      <li>{abilityInfo.ability.name}</li>
+    ))}
+  </ul>
+  
+  <h2>Stats</h2>
+  <ul>
+    {pokemonData.stats.map(statInfo => (
+      <li>{statInfo.stat.name}: {statInfo.base_stat}</li>
+    ))}
+  </ul>
+  </section>

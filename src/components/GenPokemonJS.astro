@@ -1,0 +1,40 @@
+<section>
+  <button id="generate-button">Generate a new Pokemon!</button>
+  <div id="pokemon-display"></div>
+</section>
+
+<script type="module">
+  let data = null;
+  let loading = false;
+
+  const requestRandomPokemon = async () => {
+    const response = await fetch('/api/methods.json');
+    const responseJSON = await response.json();
+    return responseJSON;
+  };
+
+  const updatePokemonDisplay = async () => {
+    loading = true;
+    document.querySelector('#pokemon-display').innerHTML = '<p>Loading...</p>';
+    data = await requestRandomPokemon();
+    loading = false;
+    document.querySelector('#pokemon-display').innerHTML = data ? formatPokemonData(data) : '<p>Loading...</p>';
+  };
+
+  const formatPokemonData = (pokemonData) => {
+    return `
+      <div>
+        <h2>${pokemonData.name}</h2>
+        <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}" />
+        <p>Height: ${pokemonData.height}</p>
+        <p>Weight: ${pokemonData.weight}</p>
+        <p>Type: ${pokemonData.types.map(typeInfo => typeInfo.type.name).join(', ')}</p>
+      </div>
+    `;
+  };
+
+  document.getElementById('generate-button').addEventListener('click', updatePokemonDisplay);
+
+  // Initial load
+  // updatePokemonDisplay();
+</script>
