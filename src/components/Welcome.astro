@@ -3,9 +3,11 @@ import pokemonLogo from '../assets/pokemon.svg';
 ---
 
 <section id="hero">
+	<div class="image-container">
 	<a href="https://pokeapi.co/">
-		<img src={pokemonLogo.src} width="640" alt="Pokedex API Homepage" />
+		<img class="shining-image" src={pokemonLogo.src} width="640" alt="Pokedex API Homepage" />
 	</a>
+</div>
 	<h1>
 		Welcome to the Pokedex Webpage! Explore the world of Pokémon.
 	</h1>
@@ -14,3 +16,39 @@ import pokemonLogo from '../assets/pokemon.svg';
 	</section>
 </section>
 
+<style>
+	/* Container for the image */
+	.image-container {
+		
+		position: relative;
+		overflow: hidden;
+		display: inline-block;
+	}
+
+	/* The actual image */
+	.shining-image {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Shine animation */
+	@keyframes shine {
+	0% {
+		transform: translateX(-100%) skewX(-15deg);
+	}
+	100% {
+		transform: translateX(100%) skewX(-15deg);
+	}
+	}
+
+	/* Shine effect overlay */
+	.image-container::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+	}
+</style>
